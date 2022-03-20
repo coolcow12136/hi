@@ -1,0 +1,146 @@
+
+
+local ScreenGui = Instance.new("ScreenGui")
+local main = Instance.new("Frame")
+local Label = Instance.new("TextLabel")
+local TextLabel = Instance.new("TextLabel")
+local Piggy1 = Instance.new("TextButton")
+local Piggy2 = Instance.new("TextButton")
+
+--Properties:
+
+ScreenGui.Parent = game.CoreGui
+
+main.Name = "main"
+main.Parent = ScreenGui
+main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+main.Position = UDim2.new(0.614900231, 0, 0.273789644, 0)
+main.Size = UDim2.new(0, 358, 0, 334)
+main.Active = true
+main.Draggable = true
+
+
+Label.Name = "Label"
+Label.Parent = main
+Label.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+Label.Size = UDim2.new(0, 358, 0, 54)
+Label.Font = Enum.Font.SciFi
+Label.Text = "ScriptHub Evo"
+Label.TextColor3 = Color3.fromRGB(0, 0, 0)
+Label.TextScaled = true
+Label.TextSize = 14.000
+Label.TextWrapped = true
+
+TextLabel.Parent = main
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.Position = UDim2.new(0, 0, 0.850299418, 0)
+TextLabel.Size = UDim2.new(0, 110, 0, 50)
+TextLabel.Font = Enum.Font.SourceSans
+TextLabel.Text = "Made By AlwaysStarCodeKelo"
+TextLabel.TextColor3 = Color3.fromRGB(0, 0, 0)
+TextLabel.TextSize = 14.000
+TextLabel.TextStrokeTransparency = 0.000
+TextLabel.TextWrapped = true
+
+Piggy1.Name = "Piggy1"
+Piggy1.Parent = main
+Piggy1.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+Piggy1.Position = UDim2.new(0, 0, 0.293413162, 0)
+Piggy1.Size = UDim2.new(0, 162, 0, 144)
+Piggy1.Font = Enum.Font.SourceSans
+Piggy1.Text = "PiggyTools"
+Piggy1.TextColor3 = Color3.fromRGB(0, 0, 0)
+Piggy1.TextScaled = true
+Piggy1.TextSize = 14.000
+Piggy1.MouseButton1Down:connect(function()
+	local PiggyGui = Instance.new("ScreenGui")
+	PiggyGui.Name = "PiggyGui"
+	PiggyGui.Parent = game.StarterGui
+
+	local ScrollingFrame = Instance.new("ScrollingFrame", PiggyGui)
+	ScrollingFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+	ScrollingFrame.Position = UDim2.new(0.08, 0, 0.42, 0)
+	ScrollingFrame.Size = UDim2.new(0, 296, 0, 388)
+
+
+
+
+	local PiggyGui = Instance.new("ScreenGui")
+	PiggyGui.Name = "PiggyGui"
+	PiggyGui.Parent = game.CoreGui
+
+	local ScrollingFrame = Instance.new("ScrollingFrame", PiggyGui)
+	ScrollingFrame.BackgroundColor3 = Color3.new(0.15, 0.15, 0.15)
+	ScrollingFrame.Position = UDim2.new(0.08, 0, 0.42, 0)
+	ScrollingFrame.Size = UDim2.new(0, 296, 0, 388)
+
+	local UIGridLayout = Instance.new("UIGridLayout", ScrollingFrame)
+	UIGridLayout.CellSize = UDim2.new(0,90,0,90)
+
+	while wait(1) do
+		local a = workspace:getDescendants()
+		local items = {}
+		local itemframes = ScrollingFrame:getChildren()
+		for i=1,#itemframes do
+			if itemframes[i].ClassName == "TextButton" then
+				itemframes[i]:remove()
+			end
+		end
+		for i=1,#a do
+			if a[i].Name == "ItemPickupScript" and a[i].Parent:findFirstChild("ClickDetector") then
+				table.insert(items, a[i].Parent)
+			end
+		end
+		for i=1,#items do
+			local ItemFrame = Instance.new("TextButton", ScrollingFrame)
+			ItemFrame.Name = "ItemFrame"
+			ItemFrame.BackgroundColor3 = Color3.new(1, 1, 1)
+			ItemFrame.BackgroundTransparency = 0.95
+			ItemFrame.Size = UDim2.new(0, 100, 0, 100)
+			ItemFrame.Text = ""
+			local View = Instance.new("ViewportFrame", ItemFrame)
+			View.Name = "View"
+			View.Size = UDim2.new(1,0,1,0)
+			View.BackgroundTransparency = 1
+			View.BorderSizePixel = 0
+			local object = items[i]
+			local viewportclone = object:Clone()
+			viewportclone.Parent = View
+			local cam = Instance.new("Camera", viewportclone)
+			cam.CameraType = Enum.CameraType.Fixed
+			local objectPosition = object.Position
+			local cameraPosition = objectPosition + Vector3.new(0,3,0)
+			cam.CoordinateFrame = CFrame.new(cameraPosition, objectPosition)
+			View.CurrentCamera = cam
+
+			ItemFrame.MouseButton1Down:connect(function()
+				if items[i]:findFirstChild("ClickDetector") then
+					local cpos = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+					wait(0.05)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = items[i].CFrame
+					wait(0.1)
+					fireclickdetector(items[i].ClickDetector)
+					wait(0.3)
+					game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = cpos
+				end
+			end)
+		end
+	end
+end)
+Piggy1.TextWrapped = true
+
+Piggy2.Name = "Piggy2"
+Piggy2.Parent = main
+Piggy2.BackgroundColor3 = Color3.fromRGB(76, 76, 76)
+Piggy2.Position = UDim2.new(0.525139689, 0, 0.28443113, 0)
+Piggy2.Size = UDim2.new(0, 162, 0, 144)
+Piggy2.Font = Enum.Font.SourceSans
+Piggy2.Text = "VynixiusPiggy"
+Piggy2.TextColor3 = Color3.fromRGB(0, 0, 0)
+Piggy2.TextScaled = true
+Piggy2.TextSize = 14.000
+Piggy2.MouseButton1Down:connect(function()
+	loadstring(game:HttpGet('https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Piggy/Piggy'))()
+end)
+Piggy2.TextWrapped = true
